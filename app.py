@@ -1,25 +1,45 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 import csv
+import pandas as pd
+import csv
+import numpy as np
+import os
 app = Flask(__name__)
+path="./people.csv"
+tempPath="./new.csv"
+ 
+fieldnames=['Name','State','Salary','Grade','Room','Telnum','Picture','Keywords']
 
-givencsv = list(csv.reader(open('people.csv')))
+df = pd.read_csv('people.csv')
+df1=df.replace(np.nan,"",regex=True)
+
+givencsv = df1.values.tolist()
 
 @app.route('/')
 def hello():
 	return render_template('home.html')
 
 @app.route('/fulldata',methods=["POST","GET"])
-def search():	
+def search():
+	df = pd.read_csv('people.csv')
+	df1 = df.replace(np.nan,"",regex=True)
+	givencsv = df1.values.tolist()
 	return render_template('fulldata.html',dict=givencsv)
 
 @app.route('/takedata',methods=["POST","GET"])
 def searchdata():
+	df = pd.read_csv('people.csv')
+	df1=df.replace(np.nan,"",regex=True)
+	givencsv = df1.values.tolist()
 	name = request.form.get("SearchBar")
 	return render_template('searching.html',dict=givencsv, name=name)
 	
 
 @app.route('/salary',methods=["POST","GET"])
 def saldata():
+	df = pd.read_csv('people.csv')
+	df1=df.replace(np.nan,"",regex=True)
+	givencsv = df1.values.tolist()
 	people = []
 	sal = request.form.get("salBar")
 	sal = float(sal)
@@ -40,12 +60,20 @@ def updatedata():
 	room = request.form.get("room")
 	telnum = request.form.get("telnum")
 	keywords = request.form.get("keywords")
-	for items in data:
-		if(items[0] == name):
-			items[1] = state 
-			items[2] = salary
-			items[3] = grade
-			items[4] = room
-			items[5] = telnum
-			items[7] = keywords
-	return render_template('home.html',dict=givencsv)
+	with open(tempPath, mode='w') as csv_file:
+		linewriter=csv.writer(csv_file)
+		mywriter=csv.DictWriter(csv_file,fieldnames=fieldnames)
+		mywriter.writeheader()
+		with open(path, mode='r') as csv_file:
+			myreader = csv.DictReader(csv_file)
+			for row in myreader:
+				if row['Name']==name:
+					if(request.form['update'] == 'Update'):
+						linewriter.writerow([name,state,salary,grade,room,telnum,row['Picture'],keywords])
+					else:
+						continue
+				else:
+					mywriter.writerow(row)
+	os.remove(path)
+	os.rename(tempPath,path)
+	return render_template('index.html')
