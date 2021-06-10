@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <style>
+body {
+  background-color: hsl(89, 43%, 51%);
+}
+</style>
+    </head>
+<body>  
+    <h1 style="text-align: center;font-family:tahoma;background-color:LightGray;font-family:tahoma;">Details of all those who's salary is less than {{sal}}</h1>  
+    {% for item in dict%}
+<img style="width: 200px;height:200px;margin-left: 20%;" src="{{ url_for('static', filename=item[6]) }}" alt="No Image found"/>
+<br>
+<label style="margin-left: 40%;">Name:     </label> 
+<input type="text" style="margin-left: 5%;" value={{item[0]}}>
+<br>
+<label style="margin-left: 40%;">State:     </label> 
+<input type="text" style="margin-left: 5%;" value={{item[1]}}>
+<br>
+<label style="margin-left: 40%;">Salary:     </label> 
+<input type="text" style="margin-left: 5%;" value={{item[2]}}>
+<br>
+<label style="margin-left: 40%;">Grade:     </label> 
+<input type="text" style="margin-left: 5%;" value={{item[3]}}>
+<br>
+<label style="margin-left: 40%;">Room:     </label> 
+<input type="text" style="margin-left: 5%;" value={{item[4]}}>
+<br>
+<label style="margin-left: 40%;">Telnum:     </label> 
+<input type="text" style="margin-left: 5%;" value={{item[5]}}>
+<br>
+<label style="margin-left: 40%;">Keywords:     </label> 
+<input type="text" style="margin-left: 5%;" value={{item[7]}}>
+<br>
+<br>
+<br>
+<br>
+    {% endfor %}
+</body>   
+</html>
