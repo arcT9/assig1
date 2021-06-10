@@ -76,4 +76,4 @@ def updatedata():
 					mywriter.writerow(row)
 	os.remove(path)
 	os.rename(tempPath,path)
-	return render_template('index.html')
+	return render_template('home.html')
