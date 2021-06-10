@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 import csv
 app = Flask(__name__)
 
-data = list(csv.reader(open('people.csv')))
+givencsv = list(csv.reader(open('people.csv')))
 
 @app.route('/')
 def hello():
@@ -10,12 +10,12 @@ def hello():
 
 @app.route('/alldata',methods=["POST","GET"])
 def search():	
-	return render_template('alldata.html',dict=data)
+	return render_template('alldata.html',dict=givencsv)
 
 @app.route('/takedata',methods=["POST","GET"])
 def searchdata():
 	name = request.form.get("SearchBar")
-	return render_template('search.html',dict=data, name=name)
+	return render_template('search.html',dict=givencsv, name=name)
 	
 
 @app.route('/saldata',methods=["POST","GET"])
@@ -23,7 +23,7 @@ def saldata():
 	people = []
 	sal = request.form.get("salBar")
 	sal = float(sal)
-	for items in data:
+	for items in givencsv:
 		salary = 0
 		if(items[2] != "" and items[2] != " "):
 			salary = float(items[2])
@@ -48,4 +48,4 @@ def updatedata():
 			items[4] = room
 			items[5] = telnum
 			items[7] = keywords
-	return render_template('index.html',dict=data)
+	return render_template('index.html',dict=givencsv)
