@@ -10,10 +10,10 @@ tempPath="./new.csv"
  
 fieldnames=['Name','State','Salary','Grade','Room','Telnum','Picture','Keywords']
 
-df = pd.read_csv('people.csv')
-df1=df.replace(np.nan,"",regex=True)
+data_f = pd.read_csv('people.csv')
+data_f1=data_f.replace(np.nan,"",regex=True)
 
-givencsv = df1.values.tolist()
+givencsv = data_f1.values.tolist()
 
 @app.route('/')
 def hello():
@@ -21,25 +21,25 @@ def hello():
 
 @app.route('/fulldata',methods=["POST","GET"])
 def search():
-	df = pd.read_csv('people.csv')
-	df1 = df.replace(np.nan,"",regex=True)
-	givencsv = df1.values.tolist()
+	data_f = pd.read_csv('people.csv')
+	data_f1 = data_f.replace(np.nan,"",regex=True)
+	givencsv = data_f1.values.tolist()
 	return render_template('fulldata.html',dict=givencsv)
 
 @app.route('/takedata',methods=["POST","GET"])
 def searchdata():
-	df = pd.read_csv('people.csv')
-	df1=df.replace(np.nan,"",regex=True)
-	givencsv = df1.values.tolist()
+	data_f = pd.read_csv('people.csv')
+	data_f1=data_f.replace(np.nan,"",regex=True)
+	givencsv = data_f1.values.tolist()
 	name = request.form.get("SearchBar")
 	return render_template('searching.html',dict=givencsv, name=name)
 	
 
 @app.route('/salary',methods=["POST","GET"])
 def saldata():
-	df = pd.read_csv('people.csv')
-	df1=df.replace(np.nan,"",regex=True)
-	givencsv = df1.values.tolist()
+	data_f = pd.read_csv('people.csv')
+	data_f1=data_f.replace(np.nan,"",regex=True)
+	givencsv = data_f1.values.tolist()
 	people = []
 	sal = request.form.get("salBar")
 	sal = float(sal)
