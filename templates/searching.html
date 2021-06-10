@@ -12,7 +12,7 @@ body {
     {% for item in dict%}
        {% if item[0] == name %}
     <form action="/update", method="POST" , method = "GET">
-<img style="width: 200px;height:200px;margin-left: 20%;" src="{{ url_for('static', filename=item[6]) }}" alt="No Image found"/>
+<img style="width: 400px;height400px;margin-left: 20%;" src="{{ url_for('static', filename=item[6]) }}" alt="No Image found"/>
 <br>
  <label style="margin-left: 50%;">Name:     </label> 
 <input type="text" name="name" style="margin-left: 10%;" value={{item[0]}}>
