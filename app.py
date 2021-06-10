@@ -6,19 +6,19 @@ givencsv = list(csv.reader(open('people.csv')))
 
 @app.route('/')
 def hello():
-	return render_template('index.html')
+	return render_template('home.html')
 
-@app.route('/alldata',methods=["POST","GET"])
+@app.route('/fulldata',methods=["POST","GET"])
 def search():	
-	return render_template('alldata.html',dict=givencsv)
+	return render_template('fulldata.html',dict=givencsv)
 
 @app.route('/takedata',methods=["POST","GET"])
 def searchdata():
 	name = request.form.get("SearchBar")
-	return render_template('search.html',dict=givencsv, name=name)
+	return render_template('searching.html',dict=givencsv, name=name)
 	
 
-@app.route('/saldata',methods=["POST","GET"])
+@app.route('/salary',methods=["POST","GET"])
 def saldata():
 	people = []
 	sal = request.form.get("salBar")
@@ -29,7 +29,7 @@ def saldata():
 			salary = float(items[2])
 		if (salary < sal):
 			people.append(items)
-	return render_template('salbaseddata.html',dict=people, sal=sal)
+	return render_template('salary.html',dict=people, sal=sal)
 
 @app.route('/update',methods=["POST","GET"])
 def updatedata():	
@@ -48,4 +48,4 @@ def updatedata():
 			items[4] = room
 			items[5] = telnum
 			items[7] = keywords
-	return render_template('index.html',dict=givencsv)
+	return render_template('home.html',dict=givencsv)
